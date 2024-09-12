@@ -98,11 +98,11 @@ def create_test_graph() -> Graph:
     return [
         Node(0, [1]),
         Node(1, [2]),
-        Node(2, [3, 4]),
-        Node(3, [4, 10]),
+        Node(2, [3]),
+        Node(3, [4]),
         Node(4, [8]),
-        Node(5, [6, 7]),
-        Node(6, []),
+        Node(5, [6]),
+        Node(6, [9]),
         Node(7, [8]),
         Node(8, []),
         Node(9, [10]),
@@ -120,7 +120,7 @@ class Config:
     slowing_coef: float = 1
     box_color: str = "blue"
     canvas_size: float = 15
-    time_step: float = 0.05
+    time_step: float = 0.1
     mass: float = 1
 
 
