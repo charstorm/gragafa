@@ -9,6 +9,7 @@ from matplotlib.lines import Line2D
 
 EPS = 1e-5
 
+
 @dataclass
 class Vec2D:
     """Represents a 2D vector or point."""
@@ -33,9 +34,10 @@ class Vec2D:
         return self
 
     def l2norm(self) -> float:
-        return (self.x * self.x + self.y * self.y) ** 0.5
+        result: float = (self.x * self.x + self.y * self.y) ** 0.5
+        return result
 
-    @staticmethod    
+    @staticmethod
     def random() -> "Vec2D":
         x, y = np.random.rand(2)
         return Vec2D(x, y)
@@ -97,16 +99,16 @@ def extract_connections(graph: Graph) -> Connections:
 def create_test_graph() -> Graph:
     return [
         Node(0, [1]),
-        Node(1, [2]),
+        Node(1, [2, 9]),
         Node(2, [3]),
         Node(3, [4]),
-        Node(4, [8]),
+        Node(4, [8, 5]),
         Node(5, [6]),
         Node(6, [9]),
-        Node(7, [8]),
+        Node(7, [8, 9, 10]),
         Node(8, []),
         Node(9, [10]),
-        Node(10,[])
+        Node(10, []),
     ]
 
 
@@ -115,9 +117,9 @@ class Config:
     box_width: float = 2
     box_height: float = 1
     attraction_coef: float = 1
-    repulsion_coef: float = 200
-    overlap_scale: float = 3
-    slowing_coef: float = 1
+    repulsion_coef: float = 130
+    overlap_scale: float = 2
+    slowing_coef: float = 0.2
     box_color: str = "blue"
     canvas_size: float = 15
     time_step: float = 0.1
@@ -130,6 +132,7 @@ def get_starting_positions(separation: float, num_nodes: int) -> list[Vec2D]:
     for angle in angles:
         position = Vec2D(x=separation * np.cos(angle), y=separation * np.sin(angle))
         result.append(position)
+    np.random.shuffle(result)  # type: ignore
     return result
 
 
@@ -284,7 +287,7 @@ class GraphAnimation:
         mass = self.config.mass
         limit = self.config.canvas_size - 2
         for box in self.node_boxes:
-            box.acceleration = box.force.scale(1/mass)
+            box.acceleration = box.force.scale(1 / mass)
             box.velocity.add(box.acceleration.copy().scale(time_step))
             box.position.add(box.velocity.copy().scale(time_step))
             box.position.x = max(-limit, min(limit, box.position.x))
@@ -322,6 +325,7 @@ class GraphAnimation:
 
 
 def main() -> None:
+    np.random.seed(2)
     config = Config()
     graph = create_test_graph()
     connections = extract_connections(graph)
