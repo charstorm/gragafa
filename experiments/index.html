@@ -3,17 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minimalistic Magic</title>
-    <link rel="stylesheet" href="style.css?v=1">
+    <title>flowcharts Example</title>
+    <style>
+        #graph-container {
+            margin: 0 auto;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello, World!</h1>
-    <p>This is minimal, but it gets the job done!</p>
-    <div id="main_canvas">
-        <svg id="main_bg_svg" height="1000" width="1000">
-        </svg>
-    </div>
+    <h1>GraphViz Example</h1>
+    <div id="graph-container"></div>
+
     <script src="main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const graph = new gragafa('graph-container', {
+                containerWidth: 1200,
+                containerHeight: 600,
+                containerPadding: 20,
+                radialLevels: 5,
+                defaultNodeColor: '#A0CFFC',
+                defaultNodeWidth: 130,
+                defaultNodeHeight: 60,
+                minDist: 200,
+            });
+
+            // Adding nodes with links
+            graph.addNode('fruits', 'Fruits', 'Delicious!', 'https://en.wikipedia.org/wiki/Fruit', '', 100, 60);
+            graph.addNode('banana', 'Banana', '', 'test.jpeg');
+            graph.addNode('apple', 'Apple', '', 'test1.pdf');
+            graph.addNode('mango', 'Mango');
+            graph.addNode('orange', 'Orange');
+            graph.addNode('lemon', 'Lemon');
+            graph.addNode('watermelon', 'Watermelon');
+            graph.addNode('grape', 'Grape');
+            graph.addNode('sour', 'Sour');
+            graph.addNode('sweet', 'Sweet',);
+            graph.addNode('sugar', 'Sugar',);
+            graph.addNode('savory', 'Savory');
+
+            // graph.addNode('ml_algo', 'Machine learning Algorithms');
+            // graph.addNode('sl', 'Supervised learning', 'it has a subtitle');
+            // graph.addNode('usl', 'Unsupervised Learning');
+            // graph.addNode('regression', 'Regression');
+            // graph.addNode('classification', 'Classification');
+            // graph.addNode('linear_regressor', 'Linear Regressor');
+            // graph.addNode('random_forest_regressor', 'Random Forest Regressor');
+            // graph.addNode('logistic_regression', 'Logistic Regression');
+            // graph.addNode('random_forest_classifier', 'Random Forest Classifier');
+            // graph.addNode('clustering', 'Clustering');
+            // graph.addNode('dimensionality_reduction', 'Dimensionality Reduction');
+            // graph.addNode('association_rule_learning', 'Association Rule Learning');
+            // graph.addNode('k_means', 'K Means');
+            // graph.addNode('dbscan', 'DBSCAN');
+            // graph.addNode('pca', 'PCA');
+            // graph.addNode('lda', 'LDA');
+            // graph.addNode('apriori', 'Apriori');
+            
+            
+            // Adding connections
+            graph.addConnection('fruits', 'banana');
+            graph.addConnection('fruits', 'apple');
+            graph.addConnection('fruits', 'mango');
+            graph.addConnection('fruits', 'watermelon');
+            graph.addConnection('fruits', 'grape');
+            graph.addConnection('fruits', 'lemon');
+            graph.addConnection('fruits', 'orange');
+            graph.addConnection('orange', 'sour');
+            graph.addConnection('lemon', 'sour');
+            graph.addConnection('sweet', 'banana');
+            graph.addConnection('sweet', 'apple');
+            graph.addConnection('sweet', 'mango');
+            graph.addConnection('sweet', 'sugar');
+            graph.addConnection('savory', 'watermelon');
+            graph.addConnection('savory', 'grape');
+
+            // graph.addConnection('ml_algo', 'sl');
+            // graph.addConnection('ml_algo', 'usl');
+            // graph.addConnection('sl', 'regression');
+            // graph.addConnection('sl', 'classification');
+            // graph.addConnection('usl', 'clustering');
+            // graph.addConnection('usl', 'dimensionality_reduction');
+            // graph.addConnection('usl', 'association_rule_learning');
+            // graph.addConnection('regression', 'linear_regressor');
+            // graph.addConnection('regression', 'random_forest_regressor');
+            // graph.addConnection('classification', 'logistic_regression');
+            // graph.addConnection('classification', 'random_forest_classifier');
+            // graph.addConnection('clustering', 'k_means');
+            // graph.addConnection('clustering', 'dbscan');
+            // graph.addConnection('dimensionality_reduction', 'pca');
+            // graph.addConnection('dimensionality_reduction', 'lda');
+            // graph.addConnection('association_rule_learning', 'apriori');
+            
+            // Draw the graph
+            graph.draw();
+
+            // Enable colored connections
+            graph.toggleColoredConnections(true);
+
+            graph.titleFontSize('1.0em');
+            graph.subtitleFontSize('0.8em');
+
+            graph.nodeTextColor('apple', '#FF0000');
+            graph.setNodeSize('fruits', 150, 50);
+            // graph.setNodeSize('ml_algo', 150, 50);
+
+            //set color of specific node
+            graph.setNodeColor('fruits', '#FBF42B');
+            // graph.setNodeColor('ml_algo', '#FBF42B');
+            graph.draw();
+
+        });
+    </script>
 </body>
 </html>
-
